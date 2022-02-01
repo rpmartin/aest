@@ -1,1 +1,9 @@
-utils::globalVariables(c("label", "prop"))
+utils::globalVariables(c("label",
+                         "prop",
+                         "change",
+                         "file_name",
+                         "level",
+                         "what_lag",
+                         "description",
+                         "group",
+                         "value"))

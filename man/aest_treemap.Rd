@@ -6,34 +6,34 @@
 \usage{
 aest_treemap(
   df,
-  group,
-  value,
+  grp,
+  vrbl,
   limit_groups = NULL,
-  show_percent = FALSE,
   title = NULL,
   subtitle = NULL,
   caption = NULL,
-  lab_size = 5
+  lab_size = 5,
+  caption_size = 5
 )
 }
 \arguments{
-\item{df}{PARAM_DESCRIPTION}
+\item{df}{A dataframe that must contain column file_name (for auto caption)}
 
-\item{group}{PARAM_DESCRIPTION}
+\item{grp}{a grouping variable}
 
-\item{value}{PARAM_DESCRIPTION}
+\item{vrbl}{the variable being plotted}
 
-\item{limit_groups}{PARAM_DESCRIPTION, Default: NULL}
+\item{limit_groups}{what is the maximum number of groups to consider, Default: NULL}
 
-\item{show_percent}{PARAM_DESCRIPTION, Default: FALSE}
+\item{title}{title if you want, Default: NULL}
 
-\item{title}{PARAM_DESCRIPTION, Default: NULL}
+\item{subtitle}{subtitle if you want, Default: NULL}
 
-\item{subtitle}{PARAM_DESCRIPTION, Default: NULL}
+\item{caption}{override the default caption, Default: NULL}
 
-\item{caption}{PARAM_DESCRIPTION, Default: NULL}
+\item{lab_size}{blunt control over labeling size, Default: 5}
 
-\item{lab_size}{PARAM_DESCRIPTION, Default: 8}
+\item{caption_size}{font size for caption Default: 8}
 }
 \value{
 OUTPUT_DESCRIPTION
