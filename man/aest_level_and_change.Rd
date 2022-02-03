@@ -14,8 +14,7 @@ aest_level_and_change(
   scale_y = "identity",
   last_n = NULL,
   caption = NULL,
-  text_size = 20,
-  caption_size = 12
+  caption_size = 5
 )
 }
 \arguments{
@@ -37,9 +36,7 @@ aest_level_and_change(
 
 \item{caption}{Over-rides the default caption (variable and file)}
 
-\item{text_size}{font size for everything else}
-
-\item{caption_size}{font size for caption}
+\item{caption_size}{the font size for the caption, Default=5}
 }
 \value{
 a two panel plotly object.

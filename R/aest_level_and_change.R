@@ -9,8 +9,7 @@
 #' @param scale_y fed into ggplot's scale_y_continuous(trans=scale_y). E.g. "log", "sqrt".
 #' @param last_n Option to only use the last_n observations.
 #' @param caption Over-rides the default caption (variable and file)
-#' @param text_size font size for everything else
-#' @param caption_size font size for caption
+#' @param caption_size the font size for the caption, Default=5
 #' @return a two panel plotly object.
 #' @details Dataframe df MUST contain a column file_name, which is shown in the plot caption.
 #' @examples
@@ -34,8 +33,7 @@ aest_level_and_change <- function(df,
                                   scale_y="identity",
                                   last_n=NULL,
                                   caption=NULL,
-                                  text_size=20,
-                                  caption_size=12){
+                                  caption_size=5){
   assert_that(is.data.frame(df))
   names_df <- names(df)
   min_value_var <-min(df[,deparse(substitute(var))])
@@ -55,5 +53,5 @@ aest_level_and_change <- function(df,
   }
   var_name <- as.character(substitute(var))
   df
-  plot_level_and_change(df, var_name, title, scale_y, caption, text_size, caption_size)
+  plot_level_and_change(df, var_name, title, scale_y, caption, caption_size)
 }

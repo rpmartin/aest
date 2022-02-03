@@ -8,7 +8,8 @@
 #' @param subtitle subtitle if you want, Default: NULL
 #' @param caption override the default caption, Default: NULL
 #' @param lab_size blunt control over labeling size, Default: 5
-#' @param caption_size font size for caption Default: 8
+#' @param caption_size font size for caption Default: 5
+#' @param legend_spot where to put the legend Default: "right"
 #' @return OUTPUT_DESCRIPTION
 #' @details DETAILS
 #' @examples
@@ -31,7 +32,8 @@ aest_treemap <- function(df,
                          subtitle=NULL,
                          caption=NULL,
                          lab_size=5,
-                         caption_size=5){
+                         caption_size=5,
+                         legend_spot="right"){
   if(is.null(caption)){
     caption_text <-paste0('Variable name: "', deparse(substitute(vrbl)), '" File name: "', df$file_name[1],'"')
   }else{
@@ -65,7 +67,8 @@ aest_treemap <- function(df,
     labs(title=title,
          caption=caption_text,
          subtitle=subtitle)+
-    theme(plot.caption = element_text(size=caption_size))+
+    theme(legend.position = legend_spot,
+          plot.caption = element_text(size=caption_size))+
     scale_fill_viridis_c(labels = comma)
 
   aest_fix_labs(p)

@@ -17,6 +17,7 @@ Imports:
     ggplot2,
     lubridate,
     magrittr,
+    patchwork,
     plotly,
     scales,
     stats,

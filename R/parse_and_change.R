@@ -17,7 +17,7 @@
 #'  \code{\link[lubridate]{interval}}
 #' @rdname parse_and_change
 #' @export
-#' @importFrom lubridate interval
+#' @import lubridate
 #' @importFrom dplyr near
 parse_and_change <- function(df, var, date_col, date_format, what_change){
   df%>%

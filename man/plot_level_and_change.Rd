@@ -4,15 +4,7 @@
 \alias{plot_level_and_change}
 \title{FUNCTION_TITLE}
 \usage{
-plot_level_and_change(
-  df,
-  var_name,
-  title,
-  scale_y,
-  caption,
-  text_size,
-  caption_size
-)
+plot_level_and_change(df, var_name, title, scale_y, caption, caption_size)
 }
 \arguments{
 \item{df}{PARAM_DESCRIPTION}
@@ -24,8 +16,6 @@ plot_level_and_change(
 \item{scale_y}{PARAM_DESCRIPTION}
 
 \item{caption}{PARAM_DESCRIPTION}
-
-\item{text_size}{PARAM_DESCRIPTION}
 
 \item{caption_size}{PARAM_DESCRIPTION}
 }

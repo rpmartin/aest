@@ -13,7 +13,8 @@ aest_treemap(
   subtitle = NULL,
   caption = NULL,
   lab_size = 5,
-  caption_size = 5
+  caption_size = 5,
+  legend_spot = "right"
 )
 }
 \arguments{
@@ -33,7 +34,9 @@ aest_treemap(
 
 \item{lab_size}{blunt control over labeling size, Default: 5}
 
-\item{caption_size}{font size for caption Default: 8}
+\item{caption_size}{font size for caption Default: 5}
+
+\item{legend_spot}{where to put the legend Default: "right"}
 }
 \value{
 OUTPUT_DESCRIPTION
