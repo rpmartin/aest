@@ -15,6 +15,7 @@ Imports:
     DT,
     forcats,
     ggplot2,
+    ggrepel,
     lubridate,
     magrittr,
     patchwork,

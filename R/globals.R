@@ -6,4 +6,9 @@ utils::globalVariables(c("label",
                          "what_lag",
                          "description",
                          "group",
-                         "value"))
+                         "value",
+                         "category",
+                         "fraction",
+                         "labelPosition",
+                         "ymin",
+                         "ymax"))

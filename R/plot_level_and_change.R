@@ -30,17 +30,29 @@ plot_level_and_change <- function(df,
   }
   plt1 <- ggplot(df ,aes(date, level))+
     geom_line()+
-    scale_y_continuous(trans=scale_y, labels=comma)
+    scale_y_continuous(trans=scale_y, labels=comma)+
+    theme(axis.title.x=element_blank(),
+          axis.text.x=element_blank(),
+          axis.ticks.x=element_blank(),
+          plot.margin = margin(t = 0,  # Top margin
+                               r = 0,  # Right margin
+                               b = 0,  # Bottom margin
+                               l = 0)) # Left margin
   plt1 <- aest_fix_labs(plt1)
 
   plt2 <-ggplot(df,aes(date, change))+
     geom_col()+
     scale_y_continuous(labels=percent)+
-    labs(x="date",
-         y=paste0("Change (",df$description,")"),
-         title=title,
-         caption=caption_text)+
-    theme(plot.caption = element_text(size=caption_size))
+    labs(x="",
+        y=paste0("Change (",df$description,")"),
+        title=title,
+        caption=caption_text)+
+    theme(plot.caption = element_text(size=caption_size),
+          plot.margin = margin(t = 0,  # Top margin
+                               r = 0,  # Right margin
+                               b = 0,  # Bottom margin
+                               l = 0)) # Left margin
+
   plt2 <- aest_fix_labs(plt2)
-  plt1/plt2
+  plt1/plt2+ xlab(label = "Date")
 }
