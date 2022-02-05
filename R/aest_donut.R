@@ -44,16 +44,12 @@ aest_donut <- function(df,
   }else{
     caption_text <- caption
   }
-  ggplot(df, aes(ymax=ymax, ymin=ymin, xmax=5, xmin=3, fill=category)) +
+  p <- ggplot(df, aes(ymax=ymax, ymin=ymin, xmax=5, xmin=3, fill=category)) +
     geom_rect(colour="lightgrey") +
     geom_label_repel(aes(x=4.5, y=labelPosition, label=label),colour=df$label_colour,nudge_x = 1) +
     scale_fill_viridis_d()+
     xlim(c(0, 6)) +
     coord_polar(theta="y") +
-    geom_text(x=0,
-              y=0,
-              aes(label = center_text),
-              size=center_text_size)+
     theme_void() +
     theme(legend.position = "none",
           panel.background = element_rect(fill = 'lightgrey', color = 'grey'),
@@ -61,4 +57,13 @@ aest_donut <- function(df,
           panel.grid.minor = element_blank(),
           plot.caption = element_text(size=caption_size))+
     labs(caption=caption_text)
+  if(is.null(center_text)){
+    p
+  }else{
+    p+
+      geom_text(x=0,
+            y=0,
+            aes(label = center_text),
+            size=center_text_size)
+  }
 }
