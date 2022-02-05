@@ -24,6 +24,7 @@
 #' @import ggplot2
 #' @import treemapify
 #' @import scales
+#' @importFrom assertthat assert_that
 aest_treemap <- function(df,
                          grp,
                          vrbl,
@@ -34,7 +35,13 @@ aest_treemap <- function(df,
                          lab_size=5,
                          caption_size=5,
                          legend_spot="right"){
-  if(is.null(caption)){
+  assert_that(is.data.frame(df))
+  names_df <- names(df)
+  assert_that(deparse(substitute(vrbl)) %in% names_df)
+  assert_that(deparse(substitute(grp)) %in% names_df)
+  assert_that("file_name" %in% names_df)
+  assert_that(is.numeric(df[[deparse(substitute(vrbl))]]))
+    if(is.null(caption)){
     caption_text <-paste0('Variable name: "', deparse(substitute(vrbl)), '" File name: "', df$file_name[1],'"')
   }else{
     caption_text <- caption

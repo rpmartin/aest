@@ -22,6 +22,7 @@
 #' @importFrom scales percent
 #' @importFrom ggrepel geom_label_repel
 #' @importFrom utils head
+#' @importFrom assertthat assert_that
 aest_donut <- function(df,
                        grp,
                        vrbl,
@@ -29,6 +30,12 @@ aest_donut <- function(df,
                        center_text_size=7,
                        caption=NULL,
                        caption_size=5){
+  assert_that(is.data.frame(df))
+  names_df <- names(df)
+  assert_that(deparse(substitute(vrbl)) %in% names_df)
+  assert_that(deparse(substitute(grp)) %in% names_df)
+  assert_that("file_name" %in% names_df)
+  assert_that(is.numeric(df[[deparse(substitute(vrbl))]]))
   df <- df%>%
     arrange(desc({{  vrbl  }}))%>%
     mutate(category=fct_reorder({{  grp  }}, {{  vrbl  }}),
@@ -52,7 +59,8 @@ aest_donut <- function(df,
     coord_polar(theta="y") +
     theme_void() +
     theme(legend.position = "none",
-          panel.background = element_rect(fill = 'lightgrey', color = 'grey'),
+          plot.background = element_rect("grey92"),
+          panel.background = element_rect("grey92"),
           panel.grid.major = element_blank(),
           panel.grid.minor = element_blank(),
           plot.caption = element_text(size=caption_size))+
