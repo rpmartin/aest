@@ -59,8 +59,8 @@ aest_donut <- function(df,
     coord_polar(theta="y") +
     theme_void() +
     theme(legend.position = "none",
-          plot.background = element_rect("grey92"),
-          panel.background = element_rect("grey92"),
+       #   plot.background = element_rect("grey92"),
+      #    panel.background = element_rect("grey92"),
           panel.grid.major = element_blank(),
           panel.grid.minor = element_blank(),
           plot.caption = element_text(size=caption_size))+
