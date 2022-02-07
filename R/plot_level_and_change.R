@@ -24,7 +24,7 @@ plot_level_and_change <- function(df,
                                   caption,
                                   caption_size){
   if(is.null(caption)){
-    caption_text <- paste0('Variable name: "', var_name, '" File name: "', file_name,'"')
+    caption_text <- paste0('Variable name: "', var_name, '" File name: "', df$file_name[1],'"')
   }else{
     caption_text <- caption
   }
