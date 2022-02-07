@@ -1,8 +1,8 @@
 #' @title FUNCTION_TITLE
 #' @description FUNCTION_DESCRIPTION
 #' @param df A dataframe that must contain column file_name (for auto caption)
-#' @param grp a grouping variable
-#' @param vrbl the variable being plotted
+#' @param y_var the variable being plotted
+#' @param group_var a grouping variable
 #' @param limit_groups what is the maximum number of groups to consider, Default: NULL
 #' @param title title if you want, Default: NULL
 #' @param subtitle subtitle if you want, Default: NULL
@@ -26,8 +26,8 @@
 #' @import scales
 #' @importFrom assertthat assert_that
 aest_treemap <- function(df,
-                         grp,
-                         vrbl,
+                         y_var,
+                         group_var,
                          limit_groups=NULL,
                          title=NULL,
                          subtitle=NULL,
@@ -37,26 +37,28 @@ aest_treemap <- function(df,
                          legend_spot="right"){
   assert_that(is.data.frame(df))
   names_df <- names(df)
-  assert_that(deparse(substitute(vrbl)) %in% names_df)
-  assert_that(deparse(substitute(grp)) %in% names_df)
+  assert_that(deparse(substitute(y_var)) %in% names_df)
+  assert_that(deparse(substitute(group_var)) %in% names_df)
   assert_that("file_name" %in% names_df)
-  assert_that(is.numeric(df[[deparse(substitute(vrbl))]]))
+  assert_that(is.numeric(df[[deparse(substitute(y_var))]]))
+  y_var_name <-deparse(substitute(y_var))
+
     if(is.null(caption)){
-    caption_text <-paste0('Variable name: "', deparse(substitute(vrbl)), '" File name: "', df$file_name[1],'"')
+    caption_text <-paste0('Variable name: "', deparse(substitute(y_var)), '" File name: "', df$file_name[1],'"')
   }else{
     caption_text <- caption
   }
 
   if(is.null(limit_groups)){
     df <- df%>%
-      mutate(group={{  grp  }},
-             value={{  vrbl  }},
+      mutate(group={{  group_var  }},
+             value={{  y_var  }},
              prop=value/sum(value))
   }else{
     df <- df%>%
-      mutate(group=fct_lump({{  grp  }}, n=limit_groups, w={{  vrbl  }}))%>%
+      mutate(group=fct_lump({{  group_var  }}, n=limit_groups, w={{  y_var  }}))%>%
       group_by(group)%>%
-      summarize(value=sum({{  vrbl  }}))%>%
+      summarize(value=sum({{  y_var  }}))%>%
       mutate(prop=(value/sum(value)))
   }
   df <- df%>%
@@ -73,7 +75,8 @@ aest_treemap <- function(df,
                       size=df$label_size) +
     labs(title=title,
          caption=caption_text,
-         subtitle=subtitle)+
+         subtitle=subtitle,
+         fill = y_var_name)+
     theme(legend.position = legend_spot,
           plot.caption = element_text(size=caption_size))+
     scale_fill_viridis_c(labels = comma)

@@ -6,8 +6,8 @@
 \usage{
 aest_level_and_change(
   df,
-  var,
-  date_col,
+  x_var,
+  y_var,
   date_format,
   what_change = "annual",
   title = NULL,
@@ -20,9 +20,9 @@ aest_level_and_change(
 \arguments{
 \item{df}{a dataframe that contains the variable of interest, a column with a time index, and the file_name column.}
 
-\item{var}{the column that contains the variable of interest.}
+\item{x_var}{the column that contains the time index.}
 
-\item{date_col}{the column that contains the time index.}
+\item{y_var}{The variable to plot on y axis}
 
 \item{date_format}{the date format: see details.}
 

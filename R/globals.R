@@ -11,4 +11,5 @@ utils::globalVariables(c("label",
                          "fraction",
                          "labelPosition",
                          "ymin",
-                         "ymax"))
+                         "ymax",
+                         "ordered_group"))

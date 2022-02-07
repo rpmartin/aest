@@ -1,8 +1,8 @@
 #' @title Level and Change Plot.
 #' @description Makes a two panel plot of the levels and changes of a non-negative variable
 #' @param df a dataframe that contains the variable of interest, a column with a time index, and the file_name column.
-#' @param var the column that contains the variable of interest.
-#' @param date_col the column that contains the time index.
+#' @param x_var the column that contains the time index.
+#' @param y_var The variable to plot on y axis
 #' @param date_format the date format: see details.
 #' @param what_change either "annual" or "from_last"
 #' @param title Optional title to include.
@@ -25,8 +25,8 @@
 #' @importFrom assertthat assert_that
 
 aest_level_and_change <- function(df,
-                                  var,
-                                  date_col,
+                                  x_var,
+                                  y_var,
                                   date_format,
                                   what_change="annual",
                                   title=NULL,
@@ -36,22 +36,22 @@ aest_level_and_change <- function(df,
                                   caption_size=5){
   assert_that(is.data.frame(df))
   names_df <- names(df)
-  min_value_var <-min(df[,deparse(substitute(var))])
-  assert_that(deparse(substitute(date_col)) %in% names_df)
-  assert_that(deparse(substitute(var)) %in% names_df)
+  min_value_var <-min(df[,deparse(substitute(y_var))])
+  assert_that(deparse(substitute(x_var)) %in% names_df)
+  assert_that(deparse(substitute(y_var)) %in% names_df)
   assert_that(min_value_var>=0)
   assert_that("file_name" %in% names_df)
   assert_that(date_format %in% c("ymd","ydm","myd","mdy","dmy","dym","ym","my","yq"))
   assert_that(what_change %in% c("annual","from_last"))
   assert_that(scale_y %in% c("identity","log","log2","log10","sqrt"))
 
-  df <-parse_and_change(df,{{  var  }}, {{  date_col  }}, date_format, what_change)
+  df <-parse_and_change(df,{{  y_var  }}, {{  x_var  }}, date_format, what_change)
 
   if(!is.null(last_n)){
     df <- df%>%
       tail(n=last_n)
   }
-  var_name <- as.character(substitute(var))
+  var_name <- as.character(substitute(y_var))
   df
   plot_level_and_change(df, var_name, title, scale_y, caption, caption_size)
 }

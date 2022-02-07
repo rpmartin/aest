@@ -6,8 +6,8 @@
 \usage{
 aest_donut(
   df,
-  grp,
-  vrbl,
+  y_var,
+  group_var,
   center_text = NULL,
   center_text_size = 7,
   caption = NULL,
@@ -17,9 +17,9 @@ aest_donut(
 \arguments{
 \item{df}{dataframe that contains}
 
-\item{grp}{a grouping variable}
+\item{y_var}{The measure being plotted}
 
-\item{vrbl}{a measure}
+\item{group_var}{a grouping variable}
 
 \item{center_text}{what text to put in middle, Default: NULL}
 

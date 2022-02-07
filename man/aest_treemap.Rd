@@ -6,8 +6,8 @@
 \usage{
 aest_treemap(
   df,
-  grp,
-  vrbl,
+  y_var,
+  group_var,
   limit_groups = NULL,
   title = NULL,
   subtitle = NULL,
@@ -20,9 +20,9 @@ aest_treemap(
 \arguments{
 \item{df}{A dataframe that must contain column file_name (for auto caption)}
 
-\item{grp}{a grouping variable}
+\item{y_var}{the variable being plotted}
 
-\item{vrbl}{the variable being plotted}
+\item{group_var}{a grouping variable}
 
 \item{limit_groups}{what is the maximum number of groups to consider, Default: NULL}
 

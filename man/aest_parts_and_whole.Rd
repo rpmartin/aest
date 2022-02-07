@@ -7,8 +7,8 @@
 aest_parts_and_whole(
   df,
   x_var,
+  y_var,
   group_var,
-  measure,
   position = "dodge",
   legend_spot = "right",
   caption_size = 5,
@@ -23,13 +23,13 @@ aest_parts_and_whole(
 
 \item{x_var}{a discrete variable to plot on the x-axis}
 
-\item{group_var}{another discrete variable that the data is grouped by}
+\item{y_var}{a numeric variable to be plotted on y-axis}
 
-\item{measure}{a numeric variable to be plotted.}
+\item{group_var}{another discrete variable that the data is grouped by}
 
 \item{position}{Either "stack" or "dodge", Default: 'dodge'}
 
-\item{legend_spot}{where to put the legend, Default: 'bottom'}
+\item{legend_spot}{where to put the legend, Default: 'right'}
 
 \item{caption_size}{font size for caption, Default=5}
 
