@@ -24,5 +24,5 @@ aest_fix_labs <- function(gg){
          colour=stringr::str_to_title(stringr::str_replace_all(gg$labels$colour, "_", " ")),
          fill=stringr::str_to_title(stringr::str_replace_all(gg$labels$fill, "_", " ")),
          edge_colour=stringr::str_to_title(stringr::str_replace_all(gg$labels$edge_colour, "_", " ")))
-  return(gg)
+    return(gg)
 }
