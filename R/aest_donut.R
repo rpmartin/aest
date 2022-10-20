@@ -6,7 +6,7 @@
 #' @param center_text what text to put in middle, Default: NULL
 #' @param center_text_size how large center font is, Default: 7
 #' @param caption user provided caption, Default: NULL
-#' @param caption_size font size for caption, Default: 5
+#' @param lab_size font size for labels, Default: 5
 #' @return a donut chart
 #' @details DETAILS
 #' @examples
@@ -29,12 +29,12 @@ aest_donut <- function(df,
                        center_text=NULL,
                        center_text_size=7,
                        caption=NULL,
-                       caption_size=5){
+                       lab_size=5){
   assert_that(is.data.frame(df))
   names_df <- names(df)
   assert_that(deparse(substitute(y_var)) %in% names_df)
   assert_that(deparse(substitute(group_var)) %in% names_df)
-  assert_that("file_name" %in% names_df)
+#  assert_that("file_name" %in% names_df)
   assert_that(is.numeric(df[[deparse(substitute(y_var))]]))
   df <- df%>%
     arrange(desc({{  y_var  }}))%>%
@@ -43,26 +43,26 @@ aest_donut <- function(df,
            ymax=cumsum(fraction),
            ymin=c(0, head(ymax, n=-1)),
            labelPosition =(ymax + ymin) / 2,
-           label = paste0(category, "\n(", scales::percent(fraction, accuracy = 1),")"),
+           label = paste0(category, "\n", scales::comma({{  y_var  }}), " (", scales::percent(fraction, accuracy = 1),")"),
            label_colour=ifelse({{  y_var  }} < mean({{  y_var  }}),"white","black")
     )
-  if(is.null(caption)){
-    caption_text <-paste0('Variable name: "', deparse(substitute(y_var)), '" File name: "', df$file_name[1],'"')
-  }else{
-    caption_text <- caption
-  }
+  # if(is.null(caption)){
+  #   caption_text <-paste0('Variable name: "', deparse(substitute(y_var)), '" File name: "', df$file_name[1],'"')
+  # }else{
+  #   caption_text <- caption
+  # }
   p <- ggplot(df, aes(ymax=ymax, ymin=ymin, xmax=5, xmin=3, fill=category)) +
     geom_rect(colour="lightgrey") +
-    geom_label_repel(aes(x=4.5, y=labelPosition, label=label),colour=df$label_colour,nudge_x = 1) +
+    geom_label_repel(aes(x=4.5, y=labelPosition, label=label),colour=df$label_colour, nudge_x = 1, size = lab_size) +
     scale_fill_viridis_d()+
     xlim(c(0, 6)) +
     coord_polar(theta="y") +
     theme_void() +
     theme(legend.position = "none",
           panel.grid.major = element_blank(),
-          panel.grid.minor = element_blank(),
-          plot.caption = element_text(size=caption_size))+
-    labs(caption=caption_text)
+          panel.grid.minor = element_blank())#,
+ #         plot.caption = element_text(size=caption_size))+
+#    labs(caption=caption_text)
   if(is.null(center_text)){
     p
   }else{

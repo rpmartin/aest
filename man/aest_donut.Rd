@@ -11,7 +11,7 @@ aest_donut(
   center_text = NULL,
   center_text_size = 7,
   caption = NULL,
-  caption_size = 5
+  lab_size = 5
 )
 }
 \arguments{
@@ -27,7 +27,7 @@ aest_donut(
 
 \item{caption}{user provided caption, Default: NULL}
 
-\item{caption_size}{font size for caption, Default: 5}
+\item{lab_size}{font size for labels, Default: 5}
 }
 \value{
 a donut chart

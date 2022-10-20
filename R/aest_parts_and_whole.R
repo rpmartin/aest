@@ -40,17 +40,17 @@ aest_parts_and_whole <- function(df,
   assert_that(deparse(substitute(x_var)) %in% names_df)
   assert_that(deparse(substitute(group_var)) %in% names_df)
   assert_that(deparse(substitute(y_var)) %in% names_df)
-  assert_that("file_name" %in% names_df)
+#  assert_that("file_name" %in% names_df)
   assert_that(length(unique(df[[deparse(substitute(x_var))]]))<20)
   assert_that(length(unique(df[[deparse(substitute(group_var))]]))<10)
   assert_that(is.numeric(df[[deparse(substitute(y_var))]]))
 
-
-  if(is.null(caption)){
-    caption_text <- paste0('Variable name: "', substitute(y_var), '" File name: "', df$file_name[1],'"')
-  }else{
-    caption_text <- caption
-  }
+#
+#   if(is.null(caption)){
+#     caption_text <- paste0('Variable name: "', substitute(y_var), '" File name: "', df$file_name[1],'"')
+#   }else{
+#     caption_text <- caption
+#   }
 
   net <- df%>%
     group_by({{  x_var  }})%>%
@@ -60,14 +60,14 @@ aest_parts_and_whole <- function(df,
              aes({{  x_var  }},{{  y_var  }},fill={{  group_var  }}),
              position=position)+
     scale_fill_viridis_d()+
-    geom_line(data=net,aes({{  x_var  }}, net, colour='Net'))+
+ #   geom_line(data=net,aes({{  x_var  }}, net, colour='Net'))+
     geom_point(data=net,aes({{  x_var  }}, net, colour='Net'))+
     scale_color_manual(name=NULL,
                        breaks=c('Net'),
                        values=c('Net'=line_colour))+
     labs(title=title,
-         subtitle=subtitle,
-         caption=caption_text)+
+         subtitle=subtitle)+#,
+    #     caption=caption_text)+
     theme(legend.position = legend_spot,
           plot.caption = element_text(size=caption_size))
   aest_fix_labs(p)
