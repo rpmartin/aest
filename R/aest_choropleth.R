@@ -1,53 +1,47 @@
 #' @title Make a choropleth map of BC economic regions
-#' @param tbbl a tibble that contains (at least) measure and region
-#' @param measure the column of the tbbl that contains the measure you want to plot
-#' @param region the column of the tbbl that contains the economic regions: these MUST be camel_case i.e. "vancouver_island_and_coast","lower_mainland_southwest","thompson_okanagan","kootenay","cariboo","north_coast_&_nechako","northeast"
+#' @param tbbl a tibble that contains (at least) the following 3 columns:
+#' @param region the column of the tbbl that contains the economic regions: these MUST be camel_case i.e. mainland_south_west, vancouver_island_coast, north_coast_&_nechako, cariboo, kootenay, north_east, thompson_okanagan
+#' @param thingy the column of the tbbl that contains the name of what is being plotted.
+#' @param value the column of the tbble that contains the value of what is being plotted.
 #' @rdname aest_choropleth
 #' @import dplyr
 #' @import leaflet
 #' @import stringr
 #' @import bcmaps
 #' @import sf
+#' @import htmltools
 #' @export
 
-aest_choropleth <- function(tbbl, measure, region) {
-  variable_plotted <- deparse(substitute(measure))
-  bc <- bcmaps::census_economic() %>%
-    sf::st_transform("+proj=longlat +datum=WGS84") %>%
-    janitor::clean_names() %>%
-    select(economic_region_name, geometry) %>%
-    mutate(
-      name = stringr::word(economic_region_name, 1, sep = "/"),
-      name = janitor::make_clean_names(name),
-      name = case_when(
-        name == "nechako" ~ "north_coast_&_nechako",
-        name == "north_coast" ~ "north_coast_&_nechako",
-        TRUE ~ name
-      )
-    ) %>%
-    select(-economic_region_name)
-
+aest_choropleth <- function(tbbl, region, thingy, value) {
   tbbl <- tbbl%>%
-    rename(value = {{  measure  }},
-           name =  {{  region  }})
-  bc <- left_join(bc, tbbl)
+    rename(region =  {{  region  }},
+           thingy = {{  thingy  }},
+           value = {{  value  }}
+    )%>%
+    ungroup()
 
-  pal <- colorNumeric("viridis", domain = bc$value)
-  pal_rev <- colorNumeric("viridis", domain = bc$value, reverse = TRUE)
+  shape <- aest::aest_bc_reg_sf()
+
+  tbbl <- shape%>%
+    left_join(tbbl, multiple = "all")
+
+  variable_plotted <- tbbl$thingy[1]
+
+  pal <- colorNumeric("viridis", domain = tbbl$value)
+  pal_rev <- colorNumeric("viridis", domain = tbbl$value, reverse = TRUE)
 
   mytext <- paste(
-    "Region: ", str_to_title(str_replace_all(bc$name,"_"," ")),"<br/>",
-    str_to_title(str_replace_all(variable_plotted,"_"," ")), ": ", scales::comma(bc$value, accuracy = .1), "<br/>",
-     sep="") %>%
+    "Region: ", str_to_title(str_replace_all(tbbl$region,"_"," ")),"<br/>",
+    str_to_title(str_replace_all(variable_plotted,"_"," ")), ": ", scales::percent(tbbl$value, accuracy = .1), "<br/>",
+    sep="") %>%
     lapply(htmltools::HTML)
-
-
-  leaflet(bc,
+  # browser()
+  leaflet(tbbl,
           options = leafletOptions(
             attributionControl = FALSE
           )
   ) %>%
-    setView(lng = -125, lat = 55, zoom = 4) %>%
+    setView(lng = -125, lat = 55, zoom = 5) %>%
     addProviderTiles("Esri.NatGeoWorldMap") %>%
     addProviderTiles("CartoDB.PositronOnlyLabels") %>%
     addPolygons(

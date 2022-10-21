@@ -4,14 +4,16 @@
 \alias{aest_choropleth}
 \title{Make a choropleth map of BC economic regions}
 \usage{
-aest_choropleth(tbbl, measure, region)
+aest_choropleth(tbbl, region, thingy, value)
 }
 \arguments{
-\item{tbbl}{a tibble that contains (at least) measure and region}
+\item{tbbl}{a tibble that contains (at least) the following 3 columns:}
 
-\item{measure}{the column of the tbbl that contains the measure you want to plot}
+\item{region}{the column of the tbbl that contains the economic regions: these MUST be camel_case i.e. mainland_south_west, vancouver_island_coast, north_coast_&_nechako, cariboo, kootenay, north_east, thompson_okanagan}
 
-\item{region}{the column of the tbbl that contains the economic regions: these MUST be camel_case i.e. "vancouver_island_and_coast","lower_mainland_southwest","thompson_okanagan","kootenay","cariboo","north_coast_&_nechako","northeast"}
+\item{thingy}{the column of the tbbl that contains the name of what is being plotted.}
+
+\item{value}{the column of the tbble that contains the value of what is being plotted.}
 }
 \description{
 Make a choropleth map of BC economic regions

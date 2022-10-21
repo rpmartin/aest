@@ -30,4 +30,6 @@ Imports:
     vroom,
     leaflet,
     bcmaps,
-    sf
+    sf,
+    htmltools,
+    cansim
