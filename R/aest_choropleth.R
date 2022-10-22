@@ -48,7 +48,7 @@ aest_choropleth <- function(tbbl, region, thingy, value) {
       fillColor = ~ pal(value),
       color = "black",
       label=mytext,
-      fillOpacity = .3,
+      fillOpacity = .5,
       weight = 1
     ) %>%
     addLegend("topright",
